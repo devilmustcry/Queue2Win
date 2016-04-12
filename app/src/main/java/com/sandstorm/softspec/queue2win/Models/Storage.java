@@ -33,5 +33,13 @@ public class Storage {
         return -1;
     }
 
+    public void addCustomer(Customer customer) {
+        customerList.add(customer);
+    }
+
+    public List<Customer> getCustomerList() {
+        return customerList;
+    }
+
 
 }

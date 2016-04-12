@@ -7,21 +7,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.sandstorm.softspec.queue2win.Activities.LoginActivity">
-
-    <TextView
-        android:id="@+id/login_logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12pt"
-        android:text="Welcome 2 Queue2Win"/>
+    tools:context="com.sandstorm.softspec.queue2win.Activities.RegisterActivity">
 
     <TextView
         android:id="@+id/register_text_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login_logo"
-        android:layout_marginTop="8pt"
         android:text="Username"
         />
 
@@ -30,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/register_text_username"
-        android:hint="Please input username"
         />
 
     <TextView
@@ -46,25 +36,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/register_text_password"
-        android:hint="Please input password"
+        android:hint="Input Password"
         android:inputType="textPassword"
         />
 
-    <Button
-        android:id="@+id/register_button_login"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/register_text_confirmpassword"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_edittext_password"
-        android:layout_centerHorizontal="true"
-        android:text="Login" />
+        android:text="Confirm Password"
+        android:layout_below="@+id/register_edittext_password"
+        />
+
+    <EditText
+        android:id="@+id/register_edittext_confirmpassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_text_confirmpassword"
+        android:hint="Re-input Password"
+        android:inputType="textPassword"/>
 
     <Button
-        android:id="@+id/register_button_register"
+        android:id="@+id/register_button_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/register_button_login"
+        android:layout_below="@id/register_edittext_confirmpassword"
         android:layout_centerHorizontal="true"
-        android:text="Register"/>
+        android:text="Confirm" />
+
+    <Button
+        android:id="@+id/register_button_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_button_confirm"
+        android:layout_centerHorizontal="true"
+        android:text="Cancel"/>
+
 
 
 </RelativeLayout>
