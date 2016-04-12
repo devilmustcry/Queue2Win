@@ -15,13 +15,22 @@ public class Storage {
 
     private Storage() {
         customerList = new ArrayList<Customer>();
-        
+        //test
+//            customerList.add(new Customer("A","A"));
     }
 
-    public Storage getInstance() {
+    public static Storage getInstance() {
         if(instance == null)
             instance = new Storage();
         return instance;
+    }
+
+    public int findCustomer(String username,String password) {
+        for(Customer customer : customerList) {
+            if(customer.getUsername().equals(username)&&customer.getPassword().equals(password))
+                return customerList.indexOf(customer);
+        }
+        return -1;
     }
 
 
