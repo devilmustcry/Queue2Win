@@ -7,11 +7,12 @@ public class Customer {
 
     private String username;
     private String password;
-
+    private Queue queue;
 
     public Customer(String username, String password) {
         this.username = username;
         this.password = password;
+        queue = null;
     }
 
     public void setPassword(String password) {
@@ -30,5 +31,13 @@ public class Customer {
     public String getUsername() {
 
         return username;
+    }
+
+    public void setQueue(Queue queue) {
+        this.queue = queue;
+    }
+
+    public Queue getQueue() {
+        return queue;
     }
 }

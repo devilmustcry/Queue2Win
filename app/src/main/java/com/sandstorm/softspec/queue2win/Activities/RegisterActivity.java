@@ -49,7 +49,6 @@ public class RegisterActivity extends AppCompatActivity {
                     } else
                         Log.i("Dialog","This Username is already registered");
 
-
                 } else
                     Log.i("Dialog", "Some textfield is blank");
             }

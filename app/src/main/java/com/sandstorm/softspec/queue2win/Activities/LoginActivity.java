@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
+
         username = (EditText) findViewById(R.id.register_edittext_username);
 
         password = (EditText) findViewById(R.id.register_edittext_password);
@@ -42,7 +43,10 @@ public class LoginActivity extends AppCompatActivity {
                     if(index == -1)
                         Log.i("Dialog","Username or password incorrect");
                     else{
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("customerIndex", index);
                         Log.i("Dialog","Login Success");
+                        startActivity(intent);
                     }
 
                 }

@@ -15,8 +15,8 @@ public class Storage {
 
     private Storage() {
         customerList = new ArrayList<Customer>();
-        //test
-//            customerList.add(new Customer("A","A"));
+//        test
+        customerList.add(new Customer("Tester","T"));
     }
 
     public static Storage getInstance() {
