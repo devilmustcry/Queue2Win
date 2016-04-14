@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sandstorm.softspec.queue2win.CustomClickListener;
@@ -20,6 +23,7 @@ import com.sandstorm.softspec.queue2win.Models.Storage;
 import com.sandstorm.softspec.queue2win.R;
 import com.sandstorm.softspec.queue2win.Views.QueueCardAdapter;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +32,17 @@ public class MainActivity extends AppCompatActivity {
     private List<Queue> queues;
     private QueueCardAdapter queueCardAdapter;
     private RecyclerView queueListView;
-    private Queue testQueue;
+    private TextView balance;
+    private Button addBalanceButton;
     private ImageButton addQueueButton;
     private int customerId;
 
     private AlertDialog.Builder addQueueDialogBuilder;
     private EditText newQueueName;
+    private EditText amount;
 
     private AlertDialog.Builder deleteQueueDialogBuilder;
+    private AlertDialog.Builder addBalanceDialogBuilder;
 
 
     @Override
@@ -51,8 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
         addQueueDialogBuilder = new AlertDialog.Builder(this);
         deleteQueueDialogBuilder = new AlertDialog.Builder(this);
+        addBalanceDialogBuilder = new AlertDialog.Builder(this);
 
-        testQueue = new Queue("Test");
+        balance = (TextView) findViewById(R.id.main_text_balance);
+        balance.setText(Storage.getInstance().getCustomerList().get(customerId).getBalance()+"");
+
         queues = new ArrayList<Queue>();
 
 
@@ -77,14 +87,50 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         queueListView.setLayoutManager(llm);
 
-        addQueueButton = (ImageButton) findViewById(R.id.main_image_addqueue);
+        addQueueButton = (ImageButton) findViewById(R.id.main_imagebutton_addqueue);
         addQueueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addQueueDialog();
             }
         });
+        addBalanceButton = (Button) findViewById(R.id.main_button_addbalance);
+        addBalanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addBalanceDialog();
+            }
+        });
 
+    }
+
+    private void addBalanceDialog() {
+        amount = new EditText(this);
+        amount.setInputType(InputType.TYPE_CLASS_NUMBER);
+        addBalanceDialogBuilder.setTitle("How much?");
+        addBalanceDialogBuilder.setView(amount);
+        addBalanceDialogBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                addBalance(Integer.parseInt(amount.getText().toString()));
+                Toast.makeText(getApplicationContext(), "You have added " + amount.getText().toString() + " Baht.", Toast.LENGTH_SHORT).show();
+                balance.setText(Storage.getInstance().getCustomerList().get(customerId).getBalance() + "");
+            }
+        });
+        addBalanceDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alertDialog = addBalanceDialogBuilder.create();
+        alertDialog.show();
+
+
+    }
+
+    private void addBalance(int balance) {
+        Storage.getInstance().getCustomerList().get(customerId).deposit(balance);
     }
 
     private void deleteQueueDialog() {
@@ -93,6 +139,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteQueue();
+                Toast.makeText(getApplicationContext(), "Your queue has been cancel",Toast.LENGTH_SHORT).show();
+                onStart();
+
             }
         });
         deleteQueueDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -108,8 +157,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteQueue() {
         Storage.getInstance().getCustomerList().get(customerId).deleteQueue();
-        Toast.makeText(getApplicationContext(), "Your queue has been cancel",Toast.LENGTH_SHORT).show();
-        onStart();
     }
 
     @Override
@@ -140,6 +187,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 addQueue();
+                Toast.makeText(getApplicationContext(), "Your queue has been made",Toast.LENGTH_SHORT).show();
+                onStart();
+
             }
         });
         addQueueDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -154,8 +204,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void addQueue() {
         Storage.getInstance().getCustomerList().get(customerId).setQueue(new Queue(newQueueName.getText().toString()));
-        Toast.makeText(getApplicationContext(), "Your queue has been made",Toast.LENGTH_SHORT).show();
-        onStart();
 
     }
 }

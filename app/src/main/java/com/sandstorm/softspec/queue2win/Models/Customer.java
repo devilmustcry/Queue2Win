@@ -8,11 +8,14 @@ public class Customer {
     private String username;
     private String password;
     private Queue queue;
+    private int balance;
+
 
     public Customer(String username, String password) {
         this.username = username;
         this.password = password;
         queue = null;
+        balance = 0;
     }
 
     public void setPassword(String password) {
@@ -43,5 +46,17 @@ public class Customer {
 
     public void deleteQueue() {
         queue = null;
+    }
+
+    public void deposit(int amount) {
+        this.balance += amount;
+    }
+
+    public void withdrawal(int amount) {
+        this.balance -= amount;
+    }
+
+    public int getBalance() {
+        return balance;
     }
 }
