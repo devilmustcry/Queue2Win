@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 deleteQueue();
                 Toast.makeText(getApplicationContext(), "Your queue has been cancel",Toast.LENGTH_SHORT).show();
-                onStart();
-
+                queueListView.setVisibility(View.INVISIBLE);
+                addQueueButton.setVisibility(View.VISIBLE);
             }
         });
         deleteQueueDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -188,8 +188,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 addQueue();
                 Toast.makeText(getApplicationContext(), "Your queue has been made",Toast.LENGTH_SHORT).show();
-                onStart();
-
+                queues.clear();
+                queues.add(Storage.getInstance().getCustomerList().get(customerId).getQueue());
+                queueListView.setVisibility(View.VISIBLE);
+                addQueueButton.setVisibility(View.INVISIBLE);
+                queueCardAdapter.notifyDataSetChanged();
             }
         });
         addQueueDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
