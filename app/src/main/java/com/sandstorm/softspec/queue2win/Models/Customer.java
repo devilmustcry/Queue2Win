@@ -40,4 +40,8 @@ public class Customer {
     public Queue getQueue() {
         return queue;
     }
+
+    public void deleteQueue() {
+        queue = null;
+    }
 }
