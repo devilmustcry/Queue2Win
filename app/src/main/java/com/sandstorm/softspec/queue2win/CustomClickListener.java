@@ -7,5 +7,6 @@ import android.view.View;
  */
 public interface CustomClickListener {
     public void onClick(View v, int position);
+    public boolean onLongClick(View v, int position);
 
 }

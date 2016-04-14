@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Queue> queues;
     private QueueCardAdapter queueCardAdapter;
     private RecyclerView queueListView;
-    private CardView queueCard;
     private Queue testQueue;
     private ImageButton addQueueButton;
     private int customerId;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder addQueueDialogBuilder;
     private EditText newQueueName;
 
-    
+    private AlertDialog.Builder deleteQueueDialogBuilder;
 
 
     @Override
@@ -51,9 +50,11 @@ public class MainActivity extends AppCompatActivity {
         customerId = (int) getIntent().getSerializableExtra("customerIndex");
 
         addQueueDialogBuilder = new AlertDialog.Builder(this);
+        deleteQueueDialogBuilder = new AlertDialog.Builder(this);
 
         testQueue = new Queue("Test");
         queues = new ArrayList<Queue>();
+
 
         queueCardAdapter = new QueueCardAdapter(queues, new CustomClickListener() {
             @Override
@@ -62,13 +63,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("customerIndex",getIntent().getSerializableExtra("customerIndex"));
                 startActivity(intent);
             }
-        });
 
-        queueCard = (CardView) findViewById(R.id.queue_card_view);
-        queueCard.setLongClickable(true);
-        queueCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public boolean onLongClick(View v, int position) {
                 deleteQueueDialog();
                 return false;
             }
@@ -79,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         queueListView.setAdapter(queueCardAdapter);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         queueListView.setLayoutManager(llm);
-
 
         addQueueButton = (ImageButton) findViewById(R.id.main_image_addqueue);
         addQueueButton.setOnClickListener(new View.OnClickListener() {
@@ -92,13 +88,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void deleteQueueDialog() {
+        deleteQueueDialogBuilder.setTitle("Are you sure?");
+        deleteQueueDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteQueue();
+            }
+        });
+        deleteQueueDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+            }
+        });
+        AlertDialog alertDialog = deleteQueueDialogBuilder.create();
 
+        alertDialog.show();
     }
 
     private void deleteQueue() {
         Storage.getInstance().getCustomerList().get(customerId).deleteQueue();
-        Toast.makeText(getApplicationContext(), "Your queue has been made",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Your queue has been cancel",Toast.LENGTH_SHORT).show();
         onStart();
     }
 
@@ -148,6 +158,4 @@ public class MainActivity extends AppCompatActivity {
         onStart();
 
     }
-
-    private void
 }

@@ -39,6 +39,12 @@ public class QueueCardAdapter extends RecyclerView.Adapter<QueueCardAdapter.Card
                 listener.onClick(v, cvh.getPosition());
             }
         });
+        v.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return listener.onLongClick(v, cvh.getPosition());
+            }
+        });
 
         return cvh;
     }
