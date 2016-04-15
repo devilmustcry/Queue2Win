@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private Button addBalanceButton;
     private ImageButton addQueueButton;
     private int customerId;
+    private Button logoutButton;
+
 
     private AlertDialog.Builder addQueueDialogBuilder;
     private EditText newQueueName;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AlertDialog.Builder deleteQueueDialogBuilder;
     private AlertDialog.Builder addBalanceDialogBuilder;
+    private AlertDialog.Builder logoutDialogBuilder;
 
 
     @Override
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         addQueueDialogBuilder = new AlertDialog.Builder(this);
         deleteQueueDialogBuilder = new AlertDialog.Builder(this);
         addBalanceDialogBuilder = new AlertDialog.Builder(this);
+        logoutDialogBuilder = new AlertDialog.Builder(this);
 
         balance = (TextView) findViewById(R.id.main_text_balance);
         balance.setText(Storage.getInstance().getCustomerList().get(customerId).getBalance()+"");
@@ -102,6 +106,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        logoutButton = (Button) findViewById(R.id.main_button_logout);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutDialog();
+            }
+        });
+    }
+
+    private void logoutDialog() {
+        logoutDialogBuilder.setTitle("Are you sure?");
+        logoutDialogBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        logoutDialogBuilder.setNegativeButton("Cancel", null);
+        AlertDialog alertDialog = logoutDialogBuilder.create();
+        alertDialog.show();
     }
 
     private void addBalanceDialog() {
