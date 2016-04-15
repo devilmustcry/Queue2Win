@@ -4,7 +4,9 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by FTTX on 4/12/2016 AD.
@@ -20,14 +22,14 @@ public class Queue {
     /**
      * Will become Map later on
      */
-    private List<Food> orderList;
+    private Map<Food,Integer> orderList;
 
     public Queue(String name) {
         this.name = name;
         date = new Date();
         timeStart = date.getMinutes();
         timeReady = date.getMinutes() + queueTime;
-        orderList = new ArrayList<Food>();
+        orderList = new HashMap<Food,Integer>();
     }
 
     public String getName() {
@@ -49,12 +51,19 @@ public class Queue {
         return timeLeft/60;
     }
 
-    public void addOrder(Food food) {
-        orderList.add(food);
+    public void addOrder(Food food, int amount) {
+        if(orderList.containsKey(food))
+            orderList.put(food,orderList.get(food) + amount);
+        else
+            orderList.put(food,amount);
     }
 
-    public List<Food> getOrderList() {
+    public Map<Food,Integer> getOrderList() {
         return orderList;
+    }
+
+    public int getAmount(Food food) {
+        return orderList.get(food);
     }
 
 }

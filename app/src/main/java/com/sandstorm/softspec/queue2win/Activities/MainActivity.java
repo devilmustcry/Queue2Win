@@ -204,6 +204,8 @@ public class MainActivity extends AppCompatActivity {
 
         queueCardAdapter.notifyDataSetChanged();
 
+
+
     }
 
     private void addQueueDialog() {
@@ -236,7 +238,9 @@ public class MainActivity extends AppCompatActivity {
 //        Storage.getInstance().getCustomerList().get(customerId).setQueue(new Queue(newQueueName.getText().toString()));
 
         Queue queue = new Queue(newQueueName.getText().toString());
-        queue.addOrder(Storage.getInstance().getFoodList().get(0));
+        queue.addOrder(Storage.getInstance().getFoodList().get(0),1);
+        queue.addOrder(Storage.getInstance().getFoodList().get(0),2);
+        queue.addOrder(Storage.getInstance().getFoodList().get(1),1);
         Storage.getInstance().getCustomerList().get(customerId).setQueue(queue);
     }
 }
