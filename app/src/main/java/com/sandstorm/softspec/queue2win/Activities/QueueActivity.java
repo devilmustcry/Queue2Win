@@ -9,10 +9,10 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.sandstorm.softspec.queue2win.Models.Food;
+import com.sandstorm.softspec.queue2win.Models.Order;
 import com.sandstorm.softspec.queue2win.Models.Storage;
 import com.sandstorm.softspec.queue2win.R;
-import com.sandstorm.softspec.queue2win.Views.AmountListAdapter;
-import com.sandstorm.softspec.queue2win.Views.FoodListAdapter;
+import com.sandstorm.softspec.queue2win.Views.OrderListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +23,9 @@ public class QueueActivity extends AppCompatActivity {
     private int customerId;
 
 
-
-    private List<Food> orderList;
+    private List<Order> orderList;
     private ListView orderListView;
-    private FoodListAdapter foodListAdapter;
-
-
-    private List<Integer> amountList;
-    private ListView amountListView;
-    private AmountListAdapter amountListAdapter;
+    private OrderListAdapter orderListAdapter;
 
 
 
@@ -48,19 +42,10 @@ public class QueueActivity extends AppCompatActivity {
         customerId = (int) getIntent().getSerializableExtra("customerIndex");
         setTitle(Storage.getInstance().getCustomerList().get(customerId).getQueue().getName());
 
-        orderList = new ArrayList<Food>();
-        foodListAdapter = new FoodListAdapter(this,R.layout.cell, orderList);
-
-        orderListView = (ListView) findViewById(R.id.queue_listview_food);
-
-        orderListView.setAdapter(foodListAdapter);
-
-        amountList = new ArrayList<Integer>();
-        amountListView = (ListView) findViewById(R.id.queue_listview_amount);
-        amountListAdapter = new AmountListAdapter(this,R.layout.cell,amountList);
-
-        amountListView.setAdapter(amountListAdapter);
-
+        orderList = Storage.getInstance().getCustomerList().get(customerId).getQueue().getOrderList();
+        orderListView = (ListView) findViewById(R.id.queue_listview_orderlist);
+        orderListAdapter = new OrderListAdapter(this, R.layout.cell, orderList);
+        orderListView.setAdapter(orderListAdapter);
 
 
 
@@ -75,28 +60,17 @@ public class QueueActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        orderList.clear();
-        amountList.clear();
-
-        Map<Food, Integer> orders = Storage.getInstance().getCustomerList().get(customerId).getQueue().getOrderList();
+        orderList = Storage.getInstance().getCustomerList().get(customerId).getQueue().getOrderList();
 
 
-        for(Food food : orders.keySet()) {
-            orderList.add(food);
-        }
-
-        for(Food food : orders.keySet()) {
-            amountList.add(orders.get(food));
-            Log.i("Amount", orders.get(food)+"");
-        }
-
-        foodListAdapter.notifyDataSetChanged();
-        amountListAdapter.notifyDataSetChanged();
+        orderListAdapter.notifyDataSetChanged();
     }
 }

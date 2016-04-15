@@ -22,14 +22,14 @@ public class Queue {
     /**
      * Will become Map later on
      */
-    private Map<Food,Integer> orderList;
+    private List<Order> orderList;
 
     public Queue(String name) {
         this.name = name;
         date = new Date();
         timeStart = date.getMinutes();
         timeReady = date.getMinutes() + queueTime;
-        orderList = new HashMap<Food,Integer>();
+        orderList = new ArrayList<Order>();
     }
 
     public String getName() {
@@ -52,18 +52,11 @@ public class Queue {
     }
 
     public void addOrder(Food food, int amount) {
-        if(orderList.containsKey(food))
-            orderList.put(food,orderList.get(food) + amount);
-        else
-            orderList.put(food,amount);
+       orderList.add(new Order(food,amount));
     }
 
-    public Map<Food,Integer> getOrderList() {
+
+    public List<Order> getOrderList() {
         return orderList;
     }
-
-    public int getAmount(Food food) {
-        return orderList.get(food);
-    }
-
 }

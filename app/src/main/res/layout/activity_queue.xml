@@ -17,36 +17,21 @@
         android:textSize="10pt"
         android:layout_centerHorizontal="true"/>
 
-    <LinearLayout
-        android:id="@+id/queue_layout_data"
+
+    <ListView
+        android:layout_below="@id/queue_text_foodlist"
+        android:id="@+id/queue_listview_orderlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="3"
-        android:orientation="horizontal"
-        android:layout_below="@+id/queue_text_foodlist"
-        >
-         <ListView
-             android:id="@+id/queue_listview_food"
-             android:layout_marginTop="5pt"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"></ListView>
-
-        <ListView
-            android:id="@+id/queue_listview_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5pt"
-            android:layout_weight="1"></ListView>
-    </LinearLayout>
-
+        android:layout_marginTop="5pt"
+        android:layout_weight="1"></ListView>
 
     <Button
         android:id="@+id/queue_button_orderfood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Order food"
-        android:layout_below="@+id/queue_layout_data"/>
+        android:layout_below="@+id/queue_listview_orderlist"/>
 
 
 
