@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
                 Intent intent = new Intent(MainActivity.this, QueueActivity.class);
-                intent.putExtra("customerIndex",getIntent().getSerializableExtra("customerIndex"));
+                intent.putExtra("customerIndex",customerId);
                 startActivity(intent);
             }
 
@@ -153,6 +153,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
     private void addBalance(int balance) {
         Storage.getInstance().getCustomerList().get(customerId).deposit(balance);
     }
@@ -230,7 +233,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addQueue() {
-        Storage.getInstance().getCustomerList().get(customerId).setQueue(new Queue(newQueueName.getText().toString()));
+//        Storage.getInstance().getCustomerList().get(customerId).setQueue(new Queue(newQueueName.getText().toString()));
 
+        Queue queue = new Queue(newQueueName.getText().toString());
+        queue.addOrder(Storage.getInstance().getFoodList().get(0));
+        Storage.getInstance().getCustomerList().get(customerId).setQueue(queue);
     }
 }

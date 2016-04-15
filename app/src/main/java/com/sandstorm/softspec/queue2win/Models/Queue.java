@@ -2,7 +2,9 @@ package com.sandstorm.softspec.queue2win.Models;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by FTTX on 4/12/2016 AD.
@@ -15,11 +17,17 @@ public class Queue {
     private Date date;
     private final int queueTime = 10;
 
+    /**
+     * Will become Map later on
+     */
+    private List<Food> orderList;
+
     public Queue(String name) {
         this.name = name;
         date = new Date();
         timeStart = date.getMinutes();
         timeReady = date.getMinutes() + queueTime;
+        orderList = new ArrayList<Food>();
     }
 
     public String getName() {
@@ -39,6 +47,14 @@ public class Queue {
 
     public long toMinute(long timeLeft) {
         return timeLeft/60;
+    }
+
+    public void addOrder(Food food) {
+        orderList.add(food);
+    }
+
+    public List<Food> getOrderList() {
+        return orderList;
     }
 
 }
