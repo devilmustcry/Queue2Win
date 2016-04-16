@@ -23,11 +23,11 @@
         android:layout_height="wrap_content"></ListView>
 
     <Button
-        android:id="@+id/order_button_getallamount"
+        android:id="@+id/order_button_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/order_listview_menu"
-        android:text="Get All Amount"/>
+        android:text="Order"/>
 
 
 </RelativeLayout>
