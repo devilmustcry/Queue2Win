@@ -5,13 +5,21 @@ package com.sandstorm.softspec.queue2win.Models;
  */
 public class Order {
 
+    private final boolean NOT_CHECK = false;
+
+    private final boolean CHECK = true;
+
+
     private Food food;
 
     private int amount;
 
+    private boolean status;
+
     public Order(Food food, int amount) {
         this.food = food;
         this.amount = amount;
+        status = NOT_CHECK;
     }
 
     public Food getFood() {
@@ -47,6 +55,14 @@ public class Order {
         int result = food != null ? food.hashCode() : 0;
         result = 31 * result + amount;
         return result;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void check() {
+        this.status = CHECK;
     }
 
     public int getPrice() {

@@ -17,7 +17,8 @@
         <activity android:name=".Activities.RegisterActivity" />
         <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.QueueActivity" />
-        <activity android:name=".Activities.OrderActivity"></activity>
+        <activity android:name=".Activities.OrderActivity" />
+        <activity android:name=".Activities.RecieptActivity"></activity>
     </application>
 
 </manifest>

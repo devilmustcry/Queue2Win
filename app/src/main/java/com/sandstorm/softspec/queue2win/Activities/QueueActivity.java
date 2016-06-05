@@ -26,6 +26,8 @@ public class QueueActivity extends AppCompatActivity {
     private List<Order> orderList;
     private ListView orderListView;
     private OrderListAdapter orderListAdapter;
+    private Button confirmOrder;
+
 
 
 
@@ -47,7 +49,17 @@ public class QueueActivity extends AppCompatActivity {
         orderListAdapter = new OrderListAdapter(this, R.layout.cell, orderList);
         orderListView.setAdapter(orderListAdapter);
 
+        confirmOrder = (Button) findViewById(R.id.queue_button_confirm);
 
+        confirmOrder.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QueueActivity.this, RecieptActivity.class);
+                intent.putExtra("customerId",customerId);
+                startActivity(intent);
+            }
+        });
 
         orderFoodButton = (Button) findViewById(R.id.queue_button_orderfood);
 
@@ -59,7 +71,6 @@ public class QueueActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
     }

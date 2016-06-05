@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sandstorm.softspec.queue2win.Models.Order;
@@ -43,6 +44,12 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
 
         TextView foodPrice = (TextView) v.findViewById(R.id.cell_price);
         foodPrice.setText(order.getPrice()+"");
+
+        ImageView check = (ImageView) v.findViewById(R.id.cell_check);
+        if(order.getStatus())
+            check.setVisibility(View.VISIBLE);
+        else
+            check.setVisibility(View.INVISIBLE);
 
         return v;
 

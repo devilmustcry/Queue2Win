@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder addQueueDialogBuilder;
     private EditText newQueueName;
     private EditText amount;
+    private EditText password;
+
+    private AlertDialog.Builder passwordDialog;
 
     private AlertDialog.Builder deleteQueueDialogBuilder;
     private AlertDialog.Builder addBalanceDialogBuilder;
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         deleteQueueDialogBuilder = new AlertDialog.Builder(this);
         addBalanceDialogBuilder = new AlertDialog.Builder(this);
         logoutDialogBuilder = new AlertDialog.Builder(this);
+        passwordDialog = new AlertDialog.Builder(this);
 
         balance = (TextView) findViewById(R.id.main_text_balance);
         balance.setText(Storage.getInstance().getCustomerList().get(customerId).getBalance()+"");
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         addBalanceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addBalanceDialog();
+                setPasswordDialog();
             }
         });
 
@@ -204,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
 
         queueCardAdapter.notifyDataSetChanged();
 
+        balance.setText(Storage.getInstance().getCustomerList().get(customerId).getBalance() + "");
 
 
     }
@@ -240,4 +245,28 @@ public class MainActivity extends AppCompatActivity {
         Queue queue = new Queue(newQueueName.getText().toString());
         Storage.getInstance().getCustomerList().get(customerId).setQueue(queue);
     }
+
+    private void setPasswordDialog() {
+
+        password = new EditText(this);
+
+        passwordDialog.setTitle("Input your password");
+        passwordDialog.setView(password);
+        passwordDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if(password.getText().toString().equals(Storage.getInstance().getCustomerList().get(customerId).getPassword())) {
+                    addBalanceDialog();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Password is wrong",Toast.LENGTH_SHORT);
+                }
+            }
+
+        });
+        passwordDialog.create().show();
+    }
+
+
 }

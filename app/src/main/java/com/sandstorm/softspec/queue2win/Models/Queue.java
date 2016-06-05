@@ -18,7 +18,6 @@ public class Queue {
     private long timeReady;
     private Date date;
     private final int queueTime = 10;
-
     /**
      * Will become Map later on
      */
@@ -52,11 +51,37 @@ public class Queue {
     }
 
     public void addOrder(Food food, int amount) {
-       orderList.add(new Order(food,amount));
+
+        Order dummy = new Order(food,0);
+        if(orderList.contains(dummy)) {
+
+            Log.i("Index Of : ",orderList.indexOf(dummy)+"");
+            orderList.set(orderList.indexOf(dummy), new Order(food, orderList.get(orderList.indexOf(dummy)).getAmount() + amount));
+
+        }
+        else
+            orderList.add(new Order(food,amount));
+    }
+
+    public int getQueuePrice() {
+        int totalPrice = 0;
+
+        for(Order order : orderList) {
+            if(!order.getStatus())
+                totalPrice += order.getPrice();
+        }
+        return totalPrice;
+
     }
 
 
     public List<Order> getOrderList() {
         return orderList;
+    }
+
+    public void checkOrderList() {
+        for(Order order : orderList) {
+            order.check();
+        }
     }
 }
